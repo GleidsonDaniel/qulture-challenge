@@ -1,35 +1,25 @@
 import {
-  INITIAL_STATE,
-  SET_FETCHING_USERS_USER_REDUCER,
-  SET_USER_LIST_USER_REDUCER,
-  SET_SELECTED_USER_USER_REDUCER,
-} from '../store/types';
+  SET_PROCESSING_USERS,
+  SET_USER_LIST,
+  SET_SELECTED_USER,
+} from '../store/types/userTypes';
 
 const initialState = {
   userList: [],
-  selectedUser: {
-    id: 0,
-    name: '',
-    email: '',
-    photo_url: '',
-    admission_date: '',
-    job_title: '',
-    created_at: '',
-    updated_at: '',
-  },
-  fetchingUsers: false,
+  selectedUser: null,
+  processingUsers: false,
 };
 
 const UserReducer = (state = initialState, {type, payload}) => {
   switch (type) {
-    case INITIAL_STATE:
+    case 'INITIAL_STATE':
       return initialState;
-    case SET_USER_LIST_USER_REDUCER:
+    case SET_USER_LIST:
       return {...state, userList: payload};
-    case SET_SELECTED_USER_USER_REDUCER:
+    case SET_SELECTED_USER:
       return {...state, selectedUser: payload};
-    case SET_FETCHING_USERS_USER_REDUCER:
-      return {...state, fetchingUsers: payload};
+    case SET_PROCESSING_USERS:
+      return {...state, processingUsers: payload};
     default:
       return state;
   }
