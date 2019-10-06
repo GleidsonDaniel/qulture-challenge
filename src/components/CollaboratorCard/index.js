@@ -14,7 +14,7 @@ import {
 
 import user from '~/assets/icons/user/user.png';
 
-const CollaboratorCard = ({collaborator}) => {
+const CollaboratorCard = ({collaborator, onPress}) => {
   const httpRegex = /^(http|https)/;
   const imageVerify = () => {
     if (
@@ -28,7 +28,7 @@ const CollaboratorCard = ({collaborator}) => {
     return user;
   };
   return (
-    <Card>
+    <Card onPress={onPress}>
       <Container>
         <Avatar source={imageVerify()} resizeMode="cover" />
         <Name>{collaborator.name}</Name>
@@ -48,6 +48,7 @@ CollaboratorCard.propTypes = {
     admission_date: PropTypes.string,
     job_title: PropTypes.string,
   }),
+  onPress: PropTypes.func,
 };
 
 CollaboratorCard.defaultProps = {
@@ -58,6 +59,7 @@ CollaboratorCard.defaultProps = {
     admission_date: '',
     job_title: '',
   },
+  onPress: () => {},
 };
 
 export default memo(CollaboratorCard);
