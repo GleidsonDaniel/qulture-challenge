@@ -22,7 +22,7 @@ const combine = __DEV__
     )
   : compose(middleware);
 
-const finalStore = createStore(persistedReducer, combine);
+const reduxStore = createStore(persistedReducer, combine);
 
-export const store = finalStore;
-export const persistor = persistStore(finalStore);
+export const store = reduxStore;
+export const persistor = persistStore(reduxStore);

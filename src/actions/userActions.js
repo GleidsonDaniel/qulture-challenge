@@ -1,8 +1,4 @@
-import {
-  SET_PROCESSING_USERS,
-  SET_SELECTED_USER,
-  SET_USER_LIST,
-} from '~/store/types/userTypes';
+import userTypes from '~/store/types/userTypes';
 import {
   getUsers,
   postUser,
@@ -11,7 +7,7 @@ import {
 } from '~/services/requests/userRequests';
 
 export const processingUsers = param => ({
-  type: SET_PROCESSING_USERS,
+  type: userTypes.SET_PROCESSING_USERS,
   payload: param,
 });
 
@@ -19,7 +15,7 @@ export const requestAllUsers = () => async dispatch => {
   dispatch(processingUsers(true));
   try {
     const users = await getUsers();
-    dispatch({type: SET_USER_LIST, payload: users});
+    dispatch({type: userTypes.SET_USER_LIST, payload: users});
     dispatch(processingUsers(false));
   } catch (e) {
     dispatch(processingUsers(false));
@@ -27,7 +23,7 @@ export const requestAllUsers = () => async dispatch => {
 };
 
 export const setSelectedUser = user => ({
-  type: SET_SELECTED_USER,
+  type: userTypes.SET_SELECTED_USER,
   payload: user,
 });
 
