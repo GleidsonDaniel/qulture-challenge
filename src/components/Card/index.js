@@ -2,6 +2,11 @@ import React from 'react';
 import {View, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+} from '~/helpers/pixelHandler';
+
 const Card = ({
   children,
   elevation,
@@ -19,10 +24,8 @@ const Card = ({
           shadowOffset: {width: 0, height: elevation},
           borderRadius: cornerRadius,
           backgroundColor,
-          width: '95%',
-          minHeight: 60,
+          width: widthPercentageToDP('46%'),
           flex: 1,
-          marginTop: 15,
           alignItems: 'center',
           justifyContent: 'center',
         },
@@ -33,10 +36,9 @@ const Card = ({
           elevation,
           borderRadius: cornerRadius,
           backgroundColor,
-          width: '95%',
-          minHeight: 60,
+          width: widthPercentageToDP('46%'),
+          height: heightPercentageToDP('28%'),
           flex: 1,
-          marginTop: 15,
           alignItems: 'center',
           justifyContent: 'center',
         },
