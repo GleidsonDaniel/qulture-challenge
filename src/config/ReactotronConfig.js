@@ -4,7 +4,7 @@ import {reactotronRedux} from 'reactotron-redux';
 let tron;
 
 if (__DEV__) {
-  tron = Reactotron.configure({host: '192.168.1.15', name: 'Qulture'})
+  tron = Reactotron.configure({host: '192.168.10.107', name: 'Qulture'})
     .use(reactotronRedux())
     .connect();
 
