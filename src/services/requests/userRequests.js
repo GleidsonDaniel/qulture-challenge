@@ -42,8 +42,8 @@ export const postUser = async user => {
 
 export const patchUser = async user => {
   try {
-    const {data} = await api.get(`v1/users/${user.id}`, user);
-    return data;
+    const {data} = await api.patch(`v1/users/${user.id}`, user);
+    return data.user;
   } catch (e) {
     return e;
   }

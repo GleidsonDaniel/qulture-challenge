@@ -9,11 +9,18 @@ const BaseInput = ({
   onChangeText,
   error,
   errorMessage,
+  value,
+  editable,
 }) => {
   return (
     <Container>
       {!!label && <TextLabel>{label}</TextLabel>}
-      <Input onSubmitEditing={onSubmitEditing} onChangeText={onChangeText} />
+      <Input
+        value={value}
+        editable={editable}
+        onSubmitEditing={onSubmitEditing}
+        onChangeText={onChangeText}
+      />
       {!!error && <TextError>{errorMessage}</TextError>}
     </Container>
   );
@@ -25,6 +32,8 @@ BaseInput.propTypes = {
   onChangeText: PropTypes.func,
   error: PropTypes.bool,
   errorMessage: PropTypes.string,
+  value: PropTypes.string,
+  editable: PropTypes.bool,
 };
 
 BaseInput.defaultProps = {
@@ -33,6 +42,8 @@ BaseInput.defaultProps = {
   onChangeText: () => {},
   error: false,
   errorMessage: '',
+  value: '',
+  editable: true,
 };
 
 export default memo(BaseInput);

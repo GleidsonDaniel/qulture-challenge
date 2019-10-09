@@ -4,7 +4,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Main from '~/screens/Main';
 import SelectedUser from '~/screens/SelectedUser';
 
-import {qultureGreen} from '~/assets/colors';
+import {qultureGreen} from '~/helpers/colors';
 
 const Routes = createAppContainer(
   createStackNavigator(

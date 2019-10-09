@@ -4,5 +4,16 @@ const baseBlack = '#262626';
 const baseWhite = '#e9f1f5';
 const baseRed = '#FF455A';
 const green = '#b9f4ad';
+const blue = '#afeeee';
+const qultureGreen = '#0FDE99';
 
-export {baseGray, grayWhite, baseBlack, baseWhite, baseRed, green};
+export {
+  baseGray,
+  grayWhite,
+  baseBlack,
+  baseWhite,
+  baseRed,
+  green,
+  qultureGreen,
+  blue,
+};

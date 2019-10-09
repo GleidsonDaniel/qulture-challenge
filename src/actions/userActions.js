@@ -27,21 +27,25 @@ export const setSelectedUser = user => ({
   payload: user,
 });
 
-export const saveNewUser = user => async (dispatch, getState) => {
+export const editUser = user => async (dispatch, getState) => {
+  const state = getState();
   dispatch(processingUsers(true));
   try {
-    const users = await postUser(user);
-    // dispatch({type: SET_USER_LIST, payload: users});
+    const editedUser = await patchUser(user);
+    const userList = await state.user.userList.map(mapedUser =>
+      mapedUser.id === editedUser.id ? editedUser : mapedUser,
+    );
+    dispatch({type: userTypes.SET_USER_LIST, payload: userList});
     dispatch(processingUsers(false));
   } catch (e) {
     dispatch(processingUsers(false));
   }
 };
 
-export const editUser = id => async (dispatch, getState) => {
+export const saveNewUser = user => async (dispatch, getState) => {
   dispatch(processingUsers(true));
   try {
-    const users = await patchUser(id);
+    const users = await postUser(user);
     // dispatch({type: SET_USER_LIST, payload: users});
     dispatch(processingUsers(false));
   } catch (e) {
