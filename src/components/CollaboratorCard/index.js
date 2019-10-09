@@ -12,25 +12,16 @@ import {
   JobTitle,
 } from './styles';
 
-import user from '~/assets/icons/user/user.png';
+import collaboratorImageVerify from '~/functions/collaboratorImageVerify';
 
 const CollaboratorCard = ({collaborator, onPress}) => {
-  const httpRegex = /^(http|https)/;
-  const imageVerify = () => {
-    if (
-      httpRegex.test(collaborator.photo_url) &&
-      !collaborator.photo_url.includes('imgur')
-    ) {
-      return {
-        uri: collaborator.photo_url,
-      };
-    }
-    return user;
-  };
   return (
     <Card onPress={onPress}>
       <Container>
-        <Avatar source={imageVerify()} resizeMode="cover" />
+        <Avatar
+          source={collaboratorImageVerify(collaborator.photo_url)}
+          resizeMode="cover"
+        />
         <Name>{collaborator.name}</Name>
         <Email>{collaborator.email}</Email>
         <AdmissionDate>{collaborator.admission_date}</AdmissionDate>

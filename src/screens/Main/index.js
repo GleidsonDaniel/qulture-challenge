@@ -23,11 +23,13 @@ const Main = () => {
   };
 
   const onEndReachedCallback = () => {
-    setLoadMoreUsers(true);
-    setTimeout(() => {
-      setLoadMoreUsers(false);
-      setOffset(offset + 10);
-    }, 500);
+    if (offset < userList.length && loadMoreusers === false) {
+      setLoadMoreUsers(true);
+      setTimeout(() => {
+        setLoadMoreUsers(false);
+        setOffset(offset + 10);
+      }, 500);
+    }
   };
 
   return (
@@ -44,7 +46,7 @@ const Main = () => {
       keyExtractor={user => user.id.toString()}
       contentContainerStyle={{paddingBottom: 10}}
       onEndReached={onEndReachedCallback}
-      onEndReachedThreshold={0.2}
+      onEndReachedThreshold={0.1}
       ListFooterComponent={<Loading loading={loadMoreusers} />}
     />
   );

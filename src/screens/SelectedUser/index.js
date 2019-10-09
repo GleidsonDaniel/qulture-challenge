@@ -6,15 +6,17 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {editUser} from '~/actions/userActions';
+import collaboratorImageVerify from '~/functions/collaboratorImageVerify';
 
 import {BaseInput, ActionButton} from '~/components';
-import {Container, ButtonContainer, SendButton} from './styles';
+import {Container, ButtonContainer, SendButton, UserImage} from './styles';
 
 const SelectedUserSchema = Yup.object().shape({
   name: Yup.string()
@@ -31,7 +33,7 @@ const SelectedUserSchema = Yup.object().shape({
 });
 
 export default function SelectedUser() {
-  const [editButton, setEditButton] = useState(false);
+  const [editable, setEditable] = useState(false);
   const dispatch = useDispatch();
   const {selectedUser} = useSelector(state => state.user);
   const setUser = async user => {
@@ -43,11 +45,11 @@ export default function SelectedUser() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : null}
-      style={{flex: 1}}>
-      <SafeAreaView style={{flex: 1}}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : null}
+        style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1}}>
           <Formik
             initialValues={selectedUser}
             validationSchema={SelectedUserSchema}
@@ -61,12 +63,20 @@ export default function SelectedUser() {
               resetForm,
             }) => (
               <Container>
+                <TouchableOpacity
+                  style={{alignItems: 'center'}}
+                  onPress={() => {}}>
+                  <UserImage
+                    source={collaboratorImageVerify(values.photo_url)}
+                  />
+                </TouchableOpacity>
                 <BaseInput
                   label="Nome"
                   value={values.name}
                   error={errors.name && touched.name}
                   errorMessage={errors.name}
                   onChangeText={handleChange('name')}
+                  editable={!!editable}
                 />
                 <BaseInput
                   label="Email"
@@ -74,6 +84,7 @@ export default function SelectedUser() {
                   error={errors.email && touched.email}
                   errorMessage={errors.email}
                   onChangeText={handleChange('email')}
+                  editable={!!editable}
                 />
                 <BaseInput
                   label="Data de admissão"
@@ -86,6 +97,7 @@ export default function SelectedUser() {
                   error={errors.job_title && touched.job_title}
                   errorMessage={errors.job_title}
                   onChangeText={handleChange('job_title')}
+                  editable={!!editable}
                 />
                 {JSON.stringify(selectedUser) !== JSON.stringify(values) && (
                   <ButtonContainer>
@@ -93,10 +105,10 @@ export default function SelectedUser() {
                   </ButtonContainer>
                 )}
                 <ActionButton
-                  icon={editButton ? 'times' : 'pencil'}
+                  icon={editable ? 'times' : 'pencil'}
                   onPress={() => {
-                    setEditButton(!editButton);
-                    if (editButton) {
+                    setEditable(!editable);
+                    if (editable) {
                       resetForm();
                       Keyboard.dismiss();
                     }
@@ -105,8 +117,8 @@ export default function SelectedUser() {
               </Container>
             )}
           </Formik>
-        </TouchableWithoutFeedback>
-      </SafeAreaView>
-    </KeyboardAvoidingView>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
