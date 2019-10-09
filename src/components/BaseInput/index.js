@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 
-import {Input, TextError, TextLabel} from './styles';
+import {Input, TextError, TextLabel, Container} from './styles';
 
 const BaseInput = ({
   label,
@@ -11,11 +11,11 @@ const BaseInput = ({
   errorMessage,
 }) => {
   return (
-    <>
+    <Container>
       {!!label && <TextLabel>{label}</TextLabel>}
       <Input onSubmitEditing={onSubmitEditing} onChangeText={onChangeText} />
       {!!error && <TextError>{errorMessage}</TextError>}
-    </>
+    </Container>
   );
 };
 

@@ -22,3 +22,7 @@ export const TextLabel = styled.Text`
   font-size: 15;
   margin-bottom: 5;
 `;
+
+export const Container = styled.View`
+  margin-top: 5px;
+`;
