@@ -37,7 +37,7 @@ const newUserSchema = Yup.object().shape({
     .min(2, 'Cargo muito curto.')
     .max(100, 'Cargo muito longo!')
     .required('Cargo requirido'),
-  admission_date: Yup.string().required('Data de adimissão requirida'),
+  admission_date: Yup.string().required('Data de admissão requirida'),
 });
 
 const newUser = {
