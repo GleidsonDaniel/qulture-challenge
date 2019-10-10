@@ -1,10 +1,15 @@
 # :metal: qulture-challenge
+
 Repository made to show my knowledge of react native, based on the challenge proposed by Qulture.Rocks.
 
 # :iphone: Mobile preview
+
 ![](mobile-preview.gif)
 
+:arrow: [Best resolution](https://drive.google.com/file/d/1zcPremDnEI00YQQSPs43QtOu3j057O7v/view?usp=sharing)
+
 # :fire: Used technologies
+
 - React Native + Hooks
 - Redux + Hooks
 - Redux Thunk
@@ -17,6 +22,7 @@ Repository made to show my knowledge of react native, based on the challenge pro
 - Eslint
 
 # :wrench: Running mobile locally
+
 - You must have the react-native enviroment seted up in your machine.
 - Enter the directory.
 - Run `yarn` or `npm install`.
@@ -25,10 +31,13 @@ Repository made to show my knowledge of react native, based on the challenge pro
 _OBS:_ For ios you need to enter the ios folder and run the `pod install` command.
 
 # :exclamation: Possible improvements
+
 - Delete a collaborator.
 - API pagination.
 - Collaborator filter.
 - Timeline + Dashboard.
+- Storybook documentation
 
 # :man: Contributors
+
 - @GleidsonDaniel
