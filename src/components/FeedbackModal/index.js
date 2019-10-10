@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, ActivityIndicator} from 'react-native';
+import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {baseRed, qultureGreen} from '~/helpers/colors';
@@ -66,3 +67,19 @@ export default function FeedbackModal({
     </Modal>
   );
 }
+
+FeedbackModal.propTypes = {
+  setModal: PropTypes.func,
+  loading: PropTypes.bool,
+  error: PropTypes.bool,
+  finalMessage: PropTypes.string,
+  okClick: PropTypes.func,
+};
+
+FeedbackModal.defaultProps = {
+  setModal: () => {},
+  loading: true,
+  error: false,
+  finalMessage: '',
+  okClick: () => {},
+};
