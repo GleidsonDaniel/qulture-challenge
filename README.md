@@ -6,7 +6,7 @@ Repository made to show my knowledge of react native, based on the challenge pro
 
 ![](mobile-preview.gif)
 
-:arrow: [Best resolution](https://drive.google.com/file/d/1zcPremDnEI00YQQSPs43QtOu3j057O7v/view?usp=sharing)
+:rocket: [Best resolution](https://drive.google.com/file/d/1zcPremDnEI00YQQSPs43QtOu3j057O7v/view?usp=sharing)
 
 # :fire: Used technologies
 
