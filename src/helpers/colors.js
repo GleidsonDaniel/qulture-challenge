@@ -6,6 +6,7 @@ const baseRed = '#FF455A';
 const green = '#b9f4ad';
 const blue = '#afeeee';
 const qultureGreen = '#0FDE99';
+const matteGreen = '#7f9928';
 
 export {
   baseGray,
@@ -16,4 +17,5 @@ export {
   green,
   qultureGreen,
   blue,
+  matteGreen,
 };
