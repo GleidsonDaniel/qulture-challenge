@@ -76,7 +76,7 @@
       "./node_modules/react-native-gesture-handler/jestSetup.js"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-navigation|react-navigation-redux-helpers|@react-navigation/.*)"
+      "node_modules/(?!(jest-)?react-native|react-navigation|react-navigation-redux-helpers|@react-navigation|@react-native-community/datetimepicker/.*)"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
