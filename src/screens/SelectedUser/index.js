@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Alert,
   TouchableWithoutFeedback,
@@ -14,9 +14,10 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from 'react-navigation-hooks';
 
 import {editUser} from '~/actions/userActions';
+import {setPhoto} from '~/actions/cameraActions';
 import collaboratorImageVerify from '~/functions/collaboratorImageVerify';
 
-import {BaseInput, ActionButton} from '~/components';
+import {BaseInput, ActionButton, FeedbackModal} from '~/components';
 import {Container, ButtonContainer, SendButton, UserImage} from './styles';
 
 const SelectedUserSchema = Yup.object().shape({
@@ -35,16 +36,22 @@ const SelectedUserSchema = Yup.object().shape({
 
 export default function SelectedUser() {
   const [editable, setEditable] = useState(false);
+  const [modalVisible, setmodalVisible] = useState(false);
   const dispatch = useDispatch();
-  const {selectedUser} = useSelector(state => state.user);
+  const {selectedUser, processingUsers} = useSelector(state => state.user);
   const {photo} = useSelector(state => state.camera);
-  const {navigate} = useNavigation();
+  const {navigate, goBack} = useNavigation();
+
+  useEffect(() => {
+    dispatch(setPhoto([]));
+  }, []);
 
   const setUser = async user => {
-    const editedUser = photo
+    const editedUser = photo.uri
       ? {...user, photo_url: `data:image/png;base64,${photo.base64}`}
       : user;
     try {
+      setmodalVisible(true);
       dispatch(editUser(editedUser));
     } catch (error) {
       Alert.alert('Houve um erro, tente novamente.');
@@ -57,6 +64,19 @@ export default function SelectedUser() {
         behavior={Platform.OS === 'ios' ? 'padding' : null}
         style={{flex: 1}}>
         <SafeAreaView style={{flex: 1}}>
+          {modalVisible && (
+            <FeedbackModal
+              loading={processingUsers}
+              finalMessage="Usuario alterado com sucesso!"
+              setModal={() => {
+                setmodalVisible(false);
+              }}
+              okClick={() => {
+                setmodalVisible(false);
+                goBack();
+              }}
+            />
+          )}
           <Formik
             initialValues={selectedUser}
             validationSchema={SelectedUserSchema}
@@ -71,11 +91,12 @@ export default function SelectedUser() {
             }) => (
               <Container>
                 <TouchableOpacity
+                  disabled={!editable}
                   style={{alignItems: 'center'}}
                   onPress={() => navigate('Camera')}>
                   <UserImage
                     source={
-                      photo
+                      photo.uri
                         ? {uri: photo.uri}
                         : collaboratorImageVerify(values.photo_url)
                     }
@@ -111,7 +132,7 @@ export default function SelectedUser() {
                   editable={!!editable}
                 />
                 {(JSON.stringify(selectedUser) !== JSON.stringify(values) ||
-                  photo) && (
+                  photo.uri) && (
                   <ButtonContainer>
                     <SendButton onPress={handleSubmit} title="Salvar" />
                   </ButtonContainer>
@@ -122,6 +143,7 @@ export default function SelectedUser() {
                     setEditable(!editable);
                     if (editable) {
                       resetForm();
+                      dispatch(setPhoto([]));
                       Keyboard.dismiss();
                     }
                   }}
