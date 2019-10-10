@@ -22,19 +22,12 @@ export const getUserById = async id => {
   }
 };
 
-export const deleteUserById = async id => {
+export const postUser = async newUser => {
   try {
-    const {data} = await api.delete(`v1/users/${id}`);
-    return data;
-  } catch (e) {
-    return e;
-  }
-};
-
-export const postUser = async user => {
-  try {
-    const {data} = await api.post('v1/users', user);
-    return data;
+    const {
+      data: {user},
+    } = await api.post('v1/users', newUser);
+    return user;
   } catch (e) {
     return e;
   }

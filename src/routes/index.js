@@ -5,6 +5,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Main from '~/screens/Main';
 import SelectedUser from '~/screens/SelectedUser';
 import Camera from '~/screens/Camera';
+import CreateUser from '~/screens/CreateUser';
 
 import {qultureGreen} from '~/helpers/colors';
 
@@ -28,6 +29,12 @@ const Routes = createAppContainer(
         navigationOptions: {
           header: Platform.OS === 'ios' ? true : null,
           title: 'Camera',
+        },
+      },
+      CreateUser: {
+        screen: CreateUser,
+        navigationOptions: {
+          title: 'Novo colaborador',
         },
       },
     },

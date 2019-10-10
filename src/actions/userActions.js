@@ -1,10 +1,5 @@
 import userTypes from '~/store/types/userTypes';
-import {
-  getUsers,
-  postUser,
-  deleteUserById,
-  patchUser,
-} from '~/services/requests/userRequests';
+import {getUsers, postUser, patchUser} from '~/services/requests/userRequests';
 
 export const processingUsers = param => ({
   type: userTypes.SET_PROCESSING_USERS,
@@ -43,21 +38,14 @@ export const editUser = user => async (dispatch, getState) => {
 };
 
 export const saveNewUser = user => async (dispatch, getState) => {
+  const state = getState();
   dispatch(processingUsers(true));
   try {
-    const users = await postUser(user);
-    // dispatch({type: SET_USER_LIST, payload: users});
-    dispatch(processingUsers(false));
-  } catch (e) {
-    dispatch(processingUsers(false));
-  }
-};
-
-export const deleteUser = id => async (dispatch, getState) => {
-  dispatch(processingUsers(true));
-  try {
-    const users = await deleteUserById(id);
-    // dispatch({type: SET_USER_LIST, payload: users});
+    const newUser = await postUser(user);
+    dispatch({
+      type: userTypes.SET_USER_LIST,
+      payload: [newUser, ...state.user.userList],
+    });
     dispatch(processingUsers(false));
   } catch (e) {
     dispatch(processingUsers(false));
