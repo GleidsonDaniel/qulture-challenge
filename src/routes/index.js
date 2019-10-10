@@ -1,8 +1,10 @@
+import {Platform} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import Main from '~/screens/Main';
 import SelectedUser from '~/screens/SelectedUser';
+import Camera from '~/screens/Camera';
 
 import {qultureGreen} from '~/helpers/colors';
 
@@ -19,6 +21,13 @@ const Routes = createAppContainer(
         screen: SelectedUser,
         navigationOptions: {
           title: 'Colaborador',
+        },
+      },
+      Camera: {
+        screen: Camera,
+        navigationOptions: {
+          header: Platform.OS === 'ios' ? true : null,
+          title: 'Camera',
         },
       },
     },
