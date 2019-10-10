@@ -17,7 +17,12 @@ import {editUser} from '~/actions/userActions';
 import {setPhoto} from '~/actions/cameraActions';
 import collaboratorImageVerify from '~/functions/collaboratorImageVerify';
 
-import {BaseInput, ActionButton, FeedbackModal} from '~/components';
+import {
+  BaseInput,
+  ActionButton,
+  FeedbackModal,
+  DatePickerInput,
+} from '~/components';
 import {Container, ButtonContainer, SendButton, UserImage} from './styles';
 
 const SelectedUserSchema = Yup.object().shape({
@@ -118,10 +123,13 @@ export default function SelectedUser() {
                   onChangeText={handleChange('email')}
                   editable={!!editable}
                 />
-                <BaseInput
+                <DatePickerInput
                   label="Data de admissão"
+                  editable={!editable}
                   value={values.admission_date}
-                  editable={false}
+                  error={errors.admission_date && touched.admission_date}
+                  errorMessage={errors.admission_date}
+                  selectDate={handleChange('admission_date')}
                 />
                 <BaseInput
                   label="Cargo"
