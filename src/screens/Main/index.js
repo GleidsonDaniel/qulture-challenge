@@ -4,12 +4,18 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from 'react-navigation-hooks';
 
 import {CollaboratorCard, Loading} from '~/components';
-import {requestAllUsers, setSelectedUser} from '~/actions/userActions';
+import {
+  requestAllUsers,
+  setSelectedUser,
+  resetUsers,
+} from '~/actions/userActions';
+
+import {Container, EmptyText} from './styles';
 
 const Main = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
-  const {userList} = useSelector(state => state.user);
+  const {userList, processingUsers} = useSelector(state => state.user);
   const [offset, setOffset] = useState(10);
   const [loadMoreusers, setLoadMoreUsers] = useState(false);
 
@@ -47,6 +53,18 @@ const Main = () => {
       contentContainerStyle={{paddingBottom: 10}}
       onEndReached={onEndReachedCallback}
       onEndReachedThreshold={0.1}
+      refreshing={processingUsers}
+      onRefresh={() => dispatch(resetUsers())}
+      ListEmptyComponent={
+        !processingUsers && (
+          <Container>
+            <EmptyText>
+              Não há colaboradores disponiveis, tente novamente ou cadastre um
+              novo colaborador.
+            </EmptyText>
+          </Container>
+        )
+      }
       ListFooterComponent={<Loading loading={loadMoreusers} />}
     />
   );

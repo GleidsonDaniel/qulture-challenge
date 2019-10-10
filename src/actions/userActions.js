@@ -63,3 +63,15 @@ export const deleteUser = id => async (dispatch, getState) => {
     dispatch(processingUsers(false));
   }
 };
+
+export const resetUsers = () => async dispatch => {
+  dispatch(processingUsers(true));
+  dispatch({type: userTypes.SET_USER_LIST, payload: []});
+  try {
+    const users = await getUsers();
+    dispatch({type: userTypes.SET_USER_LIST, payload: users});
+    dispatch(processingUsers(false));
+  } catch (e) {
+    dispatch(processingUsers(false));
+  }
+};
