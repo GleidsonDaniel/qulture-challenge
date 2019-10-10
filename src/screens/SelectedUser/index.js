@@ -11,6 +11,7 @@ import {
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useSelector, useDispatch} from 'react-redux';
+import {useNavigation} from 'react-navigation-hooks';
 
 import {editUser} from '~/actions/userActions';
 import collaboratorImageVerify from '~/functions/collaboratorImageVerify';
@@ -36,9 +37,15 @@ export default function SelectedUser() {
   const [editable, setEditable] = useState(false);
   const dispatch = useDispatch();
   const {selectedUser} = useSelector(state => state.user);
+  const {photo} = useSelector(state => state.camera);
+  const {navigate} = useNavigation();
+
   const setUser = async user => {
+    const editedUser = photo
+      ? {...user, photo_url: `data:image/png;base64,${photo.base64}`}
+      : user;
     try {
-      dispatch(editUser(user));
+      dispatch(editUser(editedUser));
     } catch (error) {
       Alert.alert('Houve um erro, tente novamente.');
     }
@@ -65,9 +72,13 @@ export default function SelectedUser() {
               <Container>
                 <TouchableOpacity
                   style={{alignItems: 'center'}}
-                  onPress={() => {}}>
+                  onPress={() => navigate('Camera')}>
                   <UserImage
-                    source={collaboratorImageVerify(values.photo_url)}
+                    source={
+                      photo
+                        ? {uri: photo.uri}
+                        : collaboratorImageVerify(values.photo_url)
+                    }
                   />
                 </TouchableOpacity>
                 <BaseInput
@@ -99,7 +110,8 @@ export default function SelectedUser() {
                   onChangeText={handleChange('job_title')}
                   editable={!!editable}
                 />
-                {JSON.stringify(selectedUser) !== JSON.stringify(values) && (
+                {(JSON.stringify(selectedUser) !== JSON.stringify(values) ||
+                  photo) && (
                   <ButtonContainer>
                     <SendButton onPress={handleSubmit} title="Salvar" />
                   </ButtonContainer>
